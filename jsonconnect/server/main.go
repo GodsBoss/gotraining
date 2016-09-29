@@ -17,6 +17,7 @@ func main() {
     if err != nil {
       fmt.Println("Error while accepting connections: " + err.Error())
     } else {
+      fmt.Println("Accepted connection from: " + connection.RemoteAddr().String())
       go handleConnection(connection)
     }
   }
