@@ -1,8 +1,11 @@
 package main
 
 import (
+  "encoding/json"
   "fmt"
   "github.com/godsboss/gotraining/jsonconnect/config"
+  "github.com/godsboss/gotraining/jsonconnect/data"
+  "io"
   "net"
 )
 
@@ -24,5 +27,20 @@ func main() {
 }
 
 func handleConnection(connection net.Conn) {
-  connection.Close()
+  reader, writer := io.Pipe()
+  go func() {
+    encodeRandomDataInto(writer)
+  }()
+  go func() {
+    defer connection.Close()
+    io.Copy(connection, reader)
+  }()
+}
+
+func encodeRandomDataInto(writer *io.PipeWriter) {
+  defer writer.Close()
+  encoder := json.NewEncoder(writer)
+  for i := 0; i<5; i++ {
+    encoder.Encode(data.GetRandom())
+  }
 }
