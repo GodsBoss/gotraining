@@ -15,16 +15,7 @@ func main() {
     fmt.Println("Could not connect: " + err.Error())
     return
   }
-  reader, writer := io.Pipe()
-  go drain(writer, connection)
-  decodeAllData(reader)
-}
-
-// Copies all input from reader to writer and closes both streams.
-func drain(writer io.WriteCloser, reader io.ReadCloser) {
-  defer reader.Close()
-  defer writer.Close()
-  io.Copy(writer, reader)
+  decodeAllData(connection)
 }
 
 func decodeAllData(reader io.ReadCloser) {
