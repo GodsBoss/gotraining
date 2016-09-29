@@ -1,5 +1,5 @@
 package config
 
 const (
-  PORT = 11666
+  PORT = "11666"
 )

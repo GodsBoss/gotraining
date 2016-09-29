@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-  listener, err := net.Listen("tcp", "127.0.0.1:" + string(config.PORT))
+  listener, err := net.Listen("tcp", "127.0.0.1:" + config.PORT)
   if err != nil {
     fmt.Println("Could not open socket connection: " + err.Error())
     return
