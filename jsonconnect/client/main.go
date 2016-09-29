@@ -16,11 +16,7 @@ func main() {
     return
   }
   reader, writer := io.Pipe()
-  go func() {
-    defer connection.Close()
-    defer writer.Close()
-    io.Copy(writer, connection)
-  }()
+  go drain(writer, connection)
   decoder := json.NewDecoder(reader)
   var value data.Data
   for decoder.More() {
@@ -32,4 +28,11 @@ func main() {
     }
   }
   reader.Close()
+}
+
+// Copies all input from reader to writer and closes both streams.
+func drain(writer io.WriteCloser, reader io.ReadCloser) {
+  defer reader.Close()
+  defer writer.Close()
+  io.Copy(writer, reader)
 }
