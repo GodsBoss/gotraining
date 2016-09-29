@@ -28,6 +28,7 @@ func drain(writer io.WriteCloser, reader io.ReadCloser) {
 }
 
 func decodeAllData(reader io.ReadCloser) {
+  defer reader.Close()
   decoder := json.NewDecoder(reader)
   var value data.Data
   for decoder.More() {
@@ -38,5 +39,4 @@ func decodeAllData(reader io.ReadCloser) {
       fmt.Printf("Received value %d.\n", value.Number)
     }
   }
-  reader.Close()
 }
