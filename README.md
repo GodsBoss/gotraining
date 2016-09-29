@@ -1,7 +1,8 @@
 Go Training
 ===========
 
-Several small Go projects to learn the language, its tools and environment.
+Several small Go projects to learn the language, its tools and environment. Not
+really useful for anything, but sharing is caring.
 
 JSON-Connect
 ------------
