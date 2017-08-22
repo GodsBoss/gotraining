@@ -5,7 +5,7 @@ import (
 )
 
 type Data struct {
-	Number int64 `json:int`
+	Number int64 `json:",int"`
 }
 
 func GetRandom() Data {
